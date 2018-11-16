@@ -1,0 +1,39 @@
+const express = require('express')
+const mongodb = require('mongodb')
+
+const router = express.Router();
+//GET POSTS
+router.get('/', async (req,res) => {
+    const posts = await carregarPosts();
+    res.send(await posts.find({}).toArray())
+})
+
+//ADD POSTS no Database
+router.post('/', async (req,res) => {
+    const posts = await carregarPosts();
+    await posts.insertOne({
+        texto: req.body.texto,
+        data: new Date()
+    })
+    res.status(201).send()
+})
+
+//Deletar Post no DB
+router.delete('/:id', async (req,res) => {
+    const posts = await carregarPosts();
+    await posts.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
+    res.status(200).send()
+})
+//Conectar com MONGODB
+async function carregarPosts() {
+    const client = await mongodb.MongoClient.connect
+    ('mongodb://user123:hugo1234@ds163226.mlab.com:63226/vue_project', {
+        useNewUrlParser: true
+    })
+    return client.db('vue_project').collection('posts')
+
+}
+
+
+
+module.exports = router
