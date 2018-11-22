@@ -7,7 +7,7 @@ router.get('/', async (req,res) => {
     const posts = await carregarPosts();
     res.send(await posts.find({}).toArray())
 })
-
+//Teste
 //ADD POSTS no Database
 router.post('/', async (req,res) => {
     const posts = await carregarPosts();
