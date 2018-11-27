@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import Post from './components/Post.vue'
+import Post from './components/Post2.vue'
 
 export default {
   name: 'app',
   components: {
-    Post
+  Post
   }
 }
 </script>

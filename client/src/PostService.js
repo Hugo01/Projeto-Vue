@@ -21,12 +21,15 @@ class PostService{
  }
 
  //Criar POSTS
-static inserir(texto){
+static inserir(texto,com){
     return axios.post(url, {
-        texto
+        texto,
+        com
     });
 }
-
+static criarcomentario(com){
+    return axios.post(url, {com});
+}
  //DELETAR POSTS
 
  static deletar(id){
