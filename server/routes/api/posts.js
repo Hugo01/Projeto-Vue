@@ -13,7 +13,9 @@ router.post('/', async (req,res) => {
     const posts = await carregarPosts();
     await posts.insertOne({
         texto: req.body.texto,
+        com: req.body.com,
         data: new Date()
+        
     })
     res.status(201).send()
 })
