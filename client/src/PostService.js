@@ -11,8 +11,8 @@ class PostService{
         const data = res.data;
        
        
-        return data.map(post => ({
-                ...post,
+        return data.map(post => ({ // função de alta-ordem "map"
+                ...post, //spread operator
                 data: new Date(post.data)
         
             }))
