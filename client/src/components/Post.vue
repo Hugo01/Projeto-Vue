@@ -1,7 +1,11 @@
 <template>
  <div class="container">
    <h1>Ultimos posts</h1>
-    <!-- criar posts --> 
+  <div class="create-post">
+    <label for="criar-posts">Diga algo...</label>
+    <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
+    <button v-on:click="createpost" >"Postar!"</button>
+  </div>
   <hr>
   <p class="error" v-if="error">{{ error }}</p>
   <div class="posts-container">
@@ -11,6 +15,7 @@
     v-bind:item="post"
     v-bind:index="index"
     v-bind:key="post._id"
+    v-on:dblclick="deletar(post._id)"
     >
     {{`${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
   <p class="text">{{ post.texto }}</p>
@@ -36,6 +41,17 @@ export default {
     }catch(err){
       this.error = err.message;
     }
+  },
+  methods: {
+    async createpost(){
+      await PostService.inserir(this.texto)
+      this.posts = await PostService.getPosts()
+    },
+      async deletar(id){
+      await PostService.deletar(id)
+      this.posts = await PostService.getPosts()
+    }
+
   }
 }
 </script>

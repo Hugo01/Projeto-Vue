@@ -1,19 +1,27 @@
 <template>
  <div class="container">
-   <h1>TESTE</h1>
-    <!-- criar posts --> 
+   <h1>Mini Projeto VueJS</h1>
+   <div class="create-post">
+    <label for="criar-posts">Diga algo...  </label>
+    <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
+    <input type="text" id="create-com" v-model="comentario" placeholder="Criar um comentario">
+    <button v-on:click="criarpost" >"Postar!"</button>
+  </div>
   <hr>
   <p class="error" v-if="error">{{ error }}</p>
   <div class="posts-container">
       
       <div class="post"
     v-for="(post, index) in posts"
+    v-bind:comment="comentario"
     v-bind:item="post"
     v-bind:index="index"
     v-bind:key="post._id"
+    v-on:dblclick="deletar(post._id)"
     >
-    {{`${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
-  <p class="text">{{ post.texto }}</p>
+    {{`Data : ${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
+  <p class="text">{{`Texto : ${post.texto}`}}</p>
+  <p class="text">{{`Comentario: ${post.com}`}}</p>
     </div>
   </div>
    </div>
@@ -27,7 +35,8 @@ export default {
     return {
       posts: [],
       error: '',
-      texto: ''
+      texto: '',
+      comentario: ''
     }
   },
   async created(){
@@ -36,6 +45,18 @@ export default {
     }catch(err){
       this.error = err.message;
     }
+  }, 
+  methods: {
+    async criarpost(){
+      await PostService.inserir(this.texto, this.comentario)
+      this.posts = await PostService.getPosts()
+      this.comentario = await PostService.getPosts()
+    },
+      async deletar(id){
+      await PostService.deletar(id)
+      this.posts = await PostService.getPosts()
+    }
+
   }
 }
 </script>

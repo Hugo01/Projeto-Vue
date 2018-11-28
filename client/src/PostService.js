@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/posts';
+const url = 'http://localhost:5000/api/posts/';
 
 class PostService{
     
@@ -10,8 +10,9 @@ class PostService{
         const res = await axios.get(url);
         const data = res.data;
        
-        return data.map(post => ({
-                ...post,
+       
+        return data.map(post => ({ // função de alta-ordem "map"
+                ...post, //spread operator
                 data: new Date(post.data)
         
             }))
@@ -20,12 +21,15 @@ class PostService{
  }
 
  //Criar POSTS
-static inserir(texto){
+static inserir(texto,com){
     return axios.post(url, {
-        texto
+        texto,
+        com
     });
 }
-
+static criarcomentario(com){
+    return axios.post(url, {com});
+}
  //DELETAR POSTS
 
  static deletar(id){
