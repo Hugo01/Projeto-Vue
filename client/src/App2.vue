@@ -6,18 +6,18 @@
 </template>
 
 <script>
-import post from './components/Post2.vue'
+import Post from './components/Post2.vue'
 
 export default {
-  name: 'teste',
+  name: 'app',
   components: {
-    post
+    Post
   }
 }
 </script>
 
 <style>
-#app2 {
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
