@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-   <h1>TESTE</h1>
+   <h1>Mini Projeto VueJS</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
     <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
