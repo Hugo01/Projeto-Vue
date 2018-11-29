@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App'
+import store from './store'
 Vue.config.productionTip = false
 
 
@@ -10,11 +11,11 @@ new Vue({
   
 }).$mount('#app', '#app2')
 */
-//TESTE
+
 new Vue({
   el: '#app',
-  router,
   template: '<App/>',
+  router,
   store,
   components: { App }
 })
