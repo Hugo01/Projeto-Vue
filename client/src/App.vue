@@ -10,14 +10,11 @@
   </div>
 </template>
 <script>
-import MyCanvas from './components/MyCanvas.vue';
-import MyBox from './components/MyBox.vue';
 
 export default {
   name: 'app',
   components: {
-    MyCanvas,
-    MyBox
+   
   },
 
   data () {
