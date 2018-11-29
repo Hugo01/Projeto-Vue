@@ -10,7 +10,7 @@ new Vue({
   
 }).$mount('#app', '#app2')
 */
-
+//TESTE
 new Vue({
   el: '#app',
   router,
