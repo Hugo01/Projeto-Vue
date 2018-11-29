@@ -12,6 +12,6 @@ const posts = require('./routes/api/posts');
 app.use('/api/posts', posts)
 app.use('/endpoint', posts)
 
-//Teste
+//Teste2
 const port = process.env.port || 5000
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`))
