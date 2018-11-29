@@ -1,17 +1,27 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/canvas">Canvas</router-link>
-       
-    </div>
-    <router-view/>
+  <div id="app2">
+    <h2>Exemplo de Canvas</h2>
+    <!-- These are the custom components we'll create -->
+    <!-- Values for `my-box` are percentages of the width of the canvas. -->
+    <!-- Each bar will take up an equal space of the canvas. -->
+    <my-canvas style="width: 100%; height: 600px;">
+      <my-box
+        v-for="obj, index of chartValues"
+        :x1="((index / chartValues.length) * 100)"
+        :x2="((index / chartValues.length) * 100) + (100 / chartValues.length)"
+        :y1="100"
+        :y2="100 - obj.val"
+        :color="obj.color"
+        :value="obj.val"
+      >
+      </my-box>
+    </my-canvas>
   </div>
 </template>
+
 <script>
-import MyCanvas from './components/MyCanvas.vue';
-import MyBox from './components/MyBox.vue';
+import MyCanvas from './MyCanvas.vue';
+import MyBox from './MyBox.vue';
 
 export default {
   name: 'app',
@@ -23,7 +33,7 @@ export default {
   data () {
     return {
       chartValues: [
-        {val: 24, color: 'red'},
+        {val: 80, color: 'red'},
         {val: 32, color: '#0f0'},
         {val: 66, color: 'rebeccapurple'},
         {val: 1, color: 'green'},
@@ -48,13 +58,18 @@ export default {
   }
 }
 </script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e30;
-  margin-top: 60px;
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#app2 {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
 }
 </style>

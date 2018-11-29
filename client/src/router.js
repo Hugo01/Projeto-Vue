@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from './App.vue'
-import Post2 from './components/Post2.vue'
+
+import Post from './components/Post2.vue'
+import Canvas from './components/Canvas.vue'
+
 
 Vue.use(Router)
 
@@ -10,16 +12,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Post2,
+      component: Post,
     
     },
     {
-      path: '/about',
-      name: 'about',
+      
+      path: '/canvas',
+      name: 'canvas',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: Canvas
     }
   ]
 })
