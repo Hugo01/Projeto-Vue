@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-   <h1>Mini Projeto VueJS</h1>
+   <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
     <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
@@ -28,9 +28,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import PostService from '../PostService';
 export default {
   name: 'PostsComp',
+
+  computed: {
+  ...mapState({
+   titulo: 'title'
+  })
+},
   data(){
     return {
       posts: [],
