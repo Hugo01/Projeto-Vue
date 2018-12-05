@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-   <h1>Mini Projeto VueJS</h1>
+   <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
     <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
@@ -10,7 +10,12 @@
   <hr>
   <p class="error" v-if="error">{{ error }}</p>
   <div class="posts-container">
-      
+      <div class="div">
+
+        {{posts.length}}
+     
+      </div>
+
       <div class="post"
     v-for="(post, index) in posts"
     v-bind:comment="comentario"
@@ -19,6 +24,7 @@
     v-bind:key="post._id"
     v-on:dblclick="deletar(post._id)"
     >
+    
     {{`Data : ${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
   <p class="text">{{`Texto : ${post.texto}`}}</p>
   <p class="text">{{`Comentario: ${post.com}`}}</p>
@@ -28,25 +34,26 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import PostService from '../PostService';
 export default {
   name: 'PostsComp',
-  data(){
-    return {
-      posts: [],
-      error: '',
-      texto: '',
-      comentario: ''
-    }
-  },
+
+  computed: {
+  ...mapState({
+   titulo: 'title',
+   posts: 'POSTS'
+  })
+},
   async created(){
-    try{
-      this.posts = await PostService.getPosts();
-    }catch(err){
-      this.error = err.message;
-    }
+   this.getposts()
   }, 
   methods: {
+    ...mapActions({
+      getposts: 'getposts'
+    }),
+
+
     async criarpost(){
       await PostService.inserir(this.texto, this.comentario)
       this.posts = await PostService.getPosts()
