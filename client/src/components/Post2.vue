@@ -5,14 +5,14 @@
     <label for="criar-posts">Diga algo...  </label>
     <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
     <input type="text" id="create-com" v-model="comentario" placeholder="Criar um comentario">
-    <button v-on:click="criarpost" >"Postar!"</button>
+    <button v-on:click="createposts()" >"Postar!"</button>
   </div>
   <hr>
   <p class="error" v-if="error">{{ error }}</p>
   <div class="posts-container">
       <div class="div">
-
         {{posts.length}}
+        
      
       </div>
 
@@ -26,6 +26,7 @@
     >
     
     {{`Data : ${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
+    
   <p class="text">{{`Texto : ${post.texto}`}}</p>
   <p class="text">{{`Comentario: ${post.com}`}}</p>
     </div>
@@ -50,18 +51,12 @@ export default {
   }, 
   methods: {
     ...mapActions({
-      getposts: 'getposts'
+      getposts: 'getposts',
+      createposts: 'createposts'
     }),
-
-
-    async criarpost(){
-      await PostService.inserir(this.texto, this.comentario)
-      this.posts = await PostService.getPosts()
-      this.comentario = await PostService.getPosts()
-    },
       async deletar(id){
       await PostService.deletar(id)
-      this.posts = await PostService.getPosts()
+      posts = await PostService.getPosts()
     }
 
   }
