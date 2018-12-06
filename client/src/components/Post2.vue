@@ -3,8 +3,8 @@
    <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
-    <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
-    <input type="text" id="create-com" v-model="comentario" placeholder="Criar um comentario">
+    <input type="text" id="create-post" v-model="text" placeholder="Criar um post">
+    <input type="text" id="create-com" v-model="coment" placeholder="Criar um comentario">
     <button v-on:click="createposts()" >"Postar!"</button>
   </div>
   <hr>
@@ -43,23 +43,31 @@ export default {
   computed: {
   ...mapState({
    titulo: 'title',
-   posts: 'POSTS'
+   posts: 'POSTS',
+   text: 'texto',
+   coment: 'comentario'
   })
 },
-  async created(){
-   this.getposts()
-  }, 
+  
   methods: {
     ...mapActions({
       getposts: 'getposts',
       createposts: 'createposts'
     }),
+
+   
       async deletar(id){
-      await PostService.deletar(id)
-      posts = await PostService.getPosts()
+        await PostService.getPosts()
+        await PostService.deletar(id)
+      
     }
 
+  },
+   async created(){
+   this.getposts()
+   //this.createposts()
   }
+  
 }
 </script>
 

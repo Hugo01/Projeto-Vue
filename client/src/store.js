@@ -8,8 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     title: 'Mini Projeto VueJS', 
-    POSTS: []
-    
+    POSTS: [],
+    texto: '',
+    comentario: ''
 
   },
 
@@ -36,8 +37,8 @@ export default new Vuex.Store({
 
       createposts: async({commit}) => {
 
-      const posts = await PostService.getPosts()
-      const inserir = await PostService.inserir('?')
+      await PostService.getPosts()
+      const inserir = await PostService.inserir(this.texto, this.comentario)
       commit('ADD_POST', inserir)
       
   
