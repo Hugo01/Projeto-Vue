@@ -3,7 +3,7 @@
    <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
-    <input type="text" id="create-post" :value="text_post" @change="createText()" placeholder="Criar um post">
+    <input type="text" id="create-post" :value="text_post" @change="createText('teste')" placeholder="Criar um post">
     <input type="text" id="create-com"  placeholder="Criar um comentario">
     <button v-on:click="createposts()" >"Postar!"</button>
   </div>
