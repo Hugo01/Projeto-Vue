@@ -20,7 +20,7 @@ export default new Vuex.Store({
     },
     ADD_POST: (state,{texto,comentario}) => {
 
-      state.POSTS = [...state.POSTS,{texto,comentario}]
+      state.POSTS = [...state.POSTS,{texto,comentario}] 
       //console.log(state)
     },
 
