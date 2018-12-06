@@ -19,8 +19,15 @@ export default new Vuex.Store({
       state.POSTS.push(...posts)
       //console.log(state)
     },
-    ADD_POST: (state, posts) => {
-      state.POSTS.push(...posts)
+    ADD_POST: (state) => {
+      state.POSTS.push(state.texto)
+      //console.log(state)
+    },
+
+    ADD_TEXTO: async (state) => {
+
+      const inserir = await PostService.inserir(state.texto)
+      state.POSTS.push(state.texto)
       //console.log(state)
     }
 
@@ -35,14 +42,20 @@ export default new Vuex.Store({
         }
       },
 
-      createposts: async({commit}) => {
+      createposts: async({commit, state }) => {
 
       await PostService.getPosts()
-      const inserir = await PostService.inserir(this.texto, this.comentario)
+      const inserir = await PostService.inserir(state.texto, state.comentario)
       commit('ADD_POST', inserir)
       
   
-      }
+      },
+
+      createText: async({commit,texto}) => {
+          commit('ADD_TEXTO', texto)
+        
+    
+        }
   }
     
 })

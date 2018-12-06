@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 import Post from './components/Post2.vue'
 import Canvas from './components/Canvas.vue'
 
@@ -16,7 +15,6 @@ export default new Router({
     
     },
     {
-      
       path: '/canvas',
       name: 'canvas',
       // route level code-splitting

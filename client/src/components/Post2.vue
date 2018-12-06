@@ -3,8 +3,8 @@
    <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
-    <input type="text" id="create-post" v-model="text" placeholder="Criar um post">
-    <input type="text" id="create-com" v-model="coment" placeholder="Criar um comentario">
+    <input type="text" id="create-post" :value="text_post" @change="createText()" placeholder="Criar um post">
+    <input type="text" id="create-com"  placeholder="Criar um comentario">
     <button v-on:click="createposts()" >"Postar!"</button>
   </div>
   <hr>
@@ -44,15 +44,17 @@ export default {
   ...mapState({
    titulo: 'title',
    posts: 'POSTS',
-   text: 'texto',
-   coment: 'comentario'
+   text_post: 'texto',
+   coment_post: 'comentario'
   })
 },
   
   methods: {
+   
     ...mapActions({
       getposts: 'getposts',
-      createposts: 'createposts'
+      createposts: 'createposts',
+      createText: 'createText'
     }),
 
    
