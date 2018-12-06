@@ -54,7 +54,9 @@ export default {
     ...mapActions({
       getposts: 'getposts',
       createposts: 'createposts',
-      createText: 'createTEXT'
+      createText: 'createTEXT',
+       
+       
     }),
 
    
@@ -62,13 +64,14 @@ export default {
         await PostService.getPosts()
         await PostService.deletar(id)
       
-    }
+    },
 
+    
   },
-   async created(){
-   this.getposts()
-   //this.createposts()
-  }
+    async created(){
+        this.getposts()
+     }
+
   
 }
 </script>

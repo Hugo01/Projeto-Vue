@@ -15,7 +15,7 @@ export default new Vuex.Store({
 
   mutations: {
     GET_POST: (state, posts) => {
-      state.POSTS.push(...posts)
+      state.POSTS = [...posts]
       //console.log(state)
     },
     ADD_POST: (state,{texto,comentario}) => {
@@ -32,7 +32,7 @@ export default new Vuex.Store({
 
   },
   actions: {
-    getposts: async ({commit, state}) => {
+    getposts: async ({commit}) => {
         try{
           const posts = await PostService.getPosts();
           commit('GET_POST', posts)
@@ -54,8 +54,6 @@ export default new Vuex.Store({
 
       createTEXT: function createText ({commit,state}, texto) {
           commit('ADD_TEXTO', texto)
-        
-    
         }
   }
     
