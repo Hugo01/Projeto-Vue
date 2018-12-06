@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import PostService from './PostService'
-import VuePost from './components/Post2'
 
 Vue.use(Vuex)
 
@@ -19,14 +18,15 @@ export default new Vuex.Store({
       state.POSTS.push(...posts)
       //console.log(state)
     },
-    ADD_POST: (state) => {
-      state.POSTS.push(state.texto)
+    ADD_POST: (state,{texto,comentario}) => {
+
+      state.POSTS = [...state.POSTS,{texto,comentario}]
       //console.log(state)
     },
 
-    ADD_TEXTO: (state) => {
-
-        state.POSTS.push(state.texto)
+    ADD_TEXTO: (state,texto) => {
+      state.texto = texto
+      
       //console.log(state)
     }
 
@@ -44,17 +44,15 @@ export default new Vuex.Store({
       createposts: async({commit, state }) => {
 
       await PostService.getPosts()
-      const inserir = await PostService.inserir(state.texto, state.comentario)
-      commit('ADD_POST', inserir)
+      await PostService.inserir(state.texto, state.comentario)
+      commit('ADD_POST', {
+        texto: state.texto,
+        comentario: state.comentario})
       
   
       },
 
-      createText: ({commit,state}, texto) => {
-        
-        texto = 'a'
-
-        const change = state.texto = texto
+      createTEXT: function createText ({commit,state}, texto) {
           commit('ADD_TEXTO', texto)
         
     

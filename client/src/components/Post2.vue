@@ -3,7 +3,7 @@
    <h1>{{ titulo }}</h1>
    <div class="create-post">
     <label for="criar-posts">Diga algo...  </label>
-    <input type="text" id="create-post" :value="text_post" @change="createText('teste')" placeholder="Criar um post">
+    <input type="text" id="createtexto" :value="text_post" @change="createText($event.target.value)" placeholder="Criar um post">
     <input type="text" id="create-com"  placeholder="Criar um comentario">
     <button v-on:click="createposts()" >"Postar!"</button>
   </div>
@@ -12,7 +12,7 @@
   <div class="posts-container">
       <div class="div">
         {{posts.length}}
-        
+        {{text_post}}
      
       </div>
 
@@ -54,7 +54,7 @@ export default {
     ...mapActions({
       getposts: 'getposts',
       createposts: 'createposts',
-      createText: 'createText'
+      createText: 'createTEXT'
     }),
 
    
