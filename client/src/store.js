@@ -9,28 +9,37 @@ export default new Vuex.Store({
     title: 'Mini Projeto VueJS', 
     POSTS: [],
     texto: '',
-    comentario: ''
+    com: '',
+    data: new Date()
 
   },
 
   mutations: {
     GET_POST: (state, posts) => {
-      state.POSTS = [...posts]
+      
+      state.POSTS = posts
       //console.log(state)
+    
     },
-    ADD_POST: (state,{texto,comentario}) => {
-
-      state.POSTS = [...state.POSTS,{texto,comentario}] 
-      //console.log(state)
+    
+    GET_DATA:(state,posts) => {
+      state.data = [posts.data]
     },
-
     ADD_TEXTO: (state,texto) => {
       state.texto = texto
       
       //console.log(state)
+    },
+    ADD_COMENTARIO:(state,comentario) => {
+      state.com = comentario;
+    },
+  
+    DELETA:  async(id)=>{
+      await PostService.getPosts()
+      await PostService.deletar(id)
+      
     }
-
-  },
+ },
   actions: {
     getposts: async ({commit}) => {
         try{
@@ -41,20 +50,32 @@ export default new Vuex.Store({
         }
       },
 
-      createposts: async({commit, state }) => {
-
-      await PostService.getPosts()
-      await PostService.inserir(state.texto, state.comentario)
-      commit('ADD_POST', {
-        texto: state.texto,
-        comentario: state.comentario})
-      
-  
+      getdata: async ({commit}) => {
+        try{
+          const posts = await PostService.getPosts();
+          commit('GET_DATA', posts)
+        }catch(err){
+          error = err.message;
+        }
       },
 
-      createTEXT: function createText ({commit,state}, texto) {
+      createposts: async({state, dispatch}) => {
+      await PostService.inserir(state.texto,state.com)
+      dispatch('getposts')
+       },
+ 
+       createTEXT: function f_create ({commit}, texto) {
           commit('ADD_TEXTO', texto)
-        }
+        },
+
+      createComment : function createComment({commit}, comentario){
+        commit('ADD_COMENTARIO', comentario)
+      },
+
+      remove: async (id) => {
+        commit('DELETA', id)
+    }
+     
   }
     
 })
