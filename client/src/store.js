@@ -34,11 +34,7 @@ export default new Vuex.Store({
       state.com = comentario;
     },
   
-    DELETA:  async(id)=>{
-      await PostService.getPosts()
-      await PostService.deletar(id)
-      
-    }
+   
  },
   actions: {
     getposts: async ({commit}) => {
@@ -73,8 +69,10 @@ export default new Vuex.Store({
       },
 
       remove: async (id) => {
-        commit('DELETA', id)
-    }
+         await PostService.deletar(id)
+         await PostService.getPosts()
+      
+      }
      
   }
     

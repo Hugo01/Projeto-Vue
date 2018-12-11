@@ -23,7 +23,7 @@ router.post('/', async (req,res) => {
 //Deletar Post no DB
 router.delete('/:id', async (req,res) => {
     const posts = await carregarPosts();
-    await posts.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
+     posts.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
     res.status(200).send()
 })
 //Conectar com MONGODB
@@ -32,7 +32,7 @@ async function carregarPosts() {
     ('mongodb://localhost:27017/vue_project', {
         useNewUrlParser: true
     })
-    return client.db('vue_project').collection('local.posts')
+    return client.db('vue_project').collection('posts')
 
 }
 
