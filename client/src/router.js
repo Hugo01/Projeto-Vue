@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Post from './components/Post2.vue'
+import Post from './components/Post.vue'
 import Canvas from './components/Canvas.vue'
+import ListView from  './components/listview.vue'
 
 
 Vue.use(Router)
@@ -17,11 +18,14 @@ export default new Router({
     {
       path: '/canvas',
       name: 'canvas',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: Canvas
-    }
+    },
+    {
+      path: '/list',
+      name: 'list',
+      component: ListView,
+    
+    },
   ]
 })
 

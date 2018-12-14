@@ -2,6 +2,8 @@ import Vue from 'vue'
 import router from './router'
 import App from './App'
 import store from './store'
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
 Vue.config.productionTip = false
 
 

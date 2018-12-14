@@ -3,8 +3,8 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/canvas">Canvas</router-link>
-       
+      <router-link to="/canvas">Canvas</router-link> | 
+       <router-link to="/list"> ListView</router-link> |
     </div>
     <router-view/>
   </div>

@@ -1,62 +1,93 @@
 <template>
  <div class="container">
-   <h1>Ultimos posts</h1>
-  <div class="create-post">
-    <label for="criar-posts">Diga algo...</label>
-    <input type="text" id="create-post" v-model="texto" placeholder="Criar um post">
-    <button v-on:click="createpost" >"Postar!"</button>
+   <h1>{{ titulo }}</h1>
+   <div class="create-post">
+    <label for="criar-posts">Diga algo...  </label>
+    <input type="text" id="createtexto" :value="text_post" @change="createText($event.target.value)" placeholder="Criar um post">
+    <input type="text" id="create-com"  :value="coment_post" @change="createComment($event.target.value)" placeholder="Criar um comentario">
+   <div class="div"></div>
+    <button @click="createposts()" >"Postar!"</button>
+    
+     <button @click="getposts()" >"Atualizar!"</button>
+  
   </div>
+  
   <hr>
   <p class="error" v-if="error">{{ error }}</p>
   <div class="posts-container">
-      
+      <div class="div">
+        <label for="Texto Atual">Texto Atual: {{text_post}} </label>
+        <label for="Comentario Atual">Comentario Atual: {{coment_post}} </label>
+         </div>
+
       <div class="post"
     v-for="(post, index) in posts"
+    v-bind:comment="comentario"
     v-bind:item="post"
     v-bind:index="index"
     v-bind:key="post._id"
-    v-on:dblclick="deletar(post._id)"
+    v-on:dblclick="del(post._id)"
     >
-    {{`${post.data.getDate()}/${post.data.getMonth()}/${post.data.getFullYear()}`}}
-  <p class="text">{{ post.texto }}</p>
+    
+    {{`Data : ${data_atual.getDate()}/${data_atual.getMonth()}/${data_atual.getFullYear()}`}}
+    
+  <p class="text">{{`Texto : ${post.texto}`}}</p>
+  <p class="text">{{`Comentario: ${post.com}`}}</p>
     </div>
   </div>
    </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import PostService from '../PostService';
 export default {
   name: 'PostsComp',
-  data(){
-    return {
-      posts: [],
-      error: '',
-      texto: ''
-    }
-  },
-  async created(){
-    try{
-      this.posts = await PostService.getPosts();
-    }catch(err){
-      this.error = err.message;
-    }
-  },
-  methods: {
-    async createpost(){
-      await PostService.inserir(this.texto)
-      this.posts = await PostService.getPosts()
-    },
-      async deletar(id){
-      await PostService.deletar(id)
-      this.posts = await PostService.getPosts()
-    }
 
-  }
+  computed: {
+  ...mapState({
+   titulo: 'title',
+   posts: 'POSTS',
+   text_post: 'texto',
+   coment_post: 'com',
+   data_atual : 'data',
+   
+   
+  })
+},
+  
+  methods: {
+   
+    ...mapActions({
+      getposts: 'getposts',
+      createposts: 'createposts',
+      createText: 'createTEXT',
+      createComment: 'createComment',
+      getdata : 'getdata',
+      remove: 'remove'
+      
+       
+       
+    }),
+
+   
+      async del(id){
+        
+        await PostService.deletar(id)
+      
+    },
+
+    
+  },
+    async created(){
+        this.getposts()
+     }
+
+  
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- CSS  -->
 <style scoped>
 div.container{
   max-width: 800px;
