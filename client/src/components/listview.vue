@@ -10,24 +10,33 @@
   
   </div>
   <hr>
-  <p class="error" v-if="error">{{ error }}</p>
   
       <div class="div">
      </div>     
 
     <div class ="list"
      v-for="(post, index) in posts"
-    v-bind:comment="comentario"
     v-bind:item="post"
     v-bind:index="index"
     v-bind:key="post._id"
     >
     </div>
 
-    <v-select label="texto" :options="posts"></v-select>
-        
-        <button @click="remove()" >Remover!</button>
-    </div>
+   <div>
+    <v-select @input="selecionado_texto = update_text($event.texto); 
+    selecionado_comentario = update_comment($event.com); 
+    selecionado_ID = update_ID($event._id)" 
+    label="texto" 
+    :options="posts" >
+    </v-select>
+     <p>{{ `Texto: ${selecionado_texto}`  }}</p> 
+     <p>{{ `Comentário: ${selecionado_comentario}`  }}</p> 
+     <p>{{ `ID: ${selecionado_ID}`  }}</p> 
+    
+  </div>
+
+
+   </div>
     
 
     
@@ -51,6 +60,9 @@ export default {
    text_post: 'texto',
    coment_post: 'com',
    data_atual : 'data',
+   selecionado_texto: 'selected_text',
+   selecionado_comentario: 'selected_comment',
+   selecionado_ID: 'selected_ID'
    
    
   })
@@ -63,7 +75,10 @@ export default {
       createText: 'createTEXT',
       createComment: 'createComment',
       getdata : 'getdata',
-      remove: 'remove'
+      remove: 'remove',
+      update_text: 'updateSelected_Text',
+      update_comment: 'updateSelected_com',
+      update_ID: 'updateSelected_id'
       }),
 
 
