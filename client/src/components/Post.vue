@@ -26,7 +26,7 @@
     v-bind:item="post"
     v-bind:index="index"
     v-bind:key="post._id"
-    v-on:dblclick="del(post._id)"
+    v-on:dblclick="remove(post._id)"
     >
     
     {{`Data : ${data_atual.getDate()}/${data_atual.getMonth()}/${data_atual.getFullYear()}`}}
@@ -74,7 +74,7 @@ export default {
       async del(id){
         
         await PostService.deletar(id)
-      
+        await PostService.getPosts()
     },
 
     
