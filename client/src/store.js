@@ -11,7 +11,10 @@ export default new Vuex.Store({
     POSTS: [],
     texto: '',
     com: '',
-    data: new Date()
+    data: new Date(),
+    selected_text: '',
+    selected_comment: '',
+    selected_ID: ''
 
   },
 
@@ -32,12 +35,41 @@ export default new Vuex.Store({
       //console.log(state)
     },
     ADD_COMENTARIO:(state,comentario) => {
-      state.com = comentario;
+      state.com = comentario
     },
-  
+    
+    UPDATESELECTED:(state, selecionado) => {
+      state.selected_text = selecionado
+    },
+
+    UPDATECOMMENT: (state,comentario) => {
+      state.selected_comment= comentario
+    },
+
+    UPDATEID: (state,id) => {
+      state.selected_ID = id
+    },
+    
+    DELETE_POST: async (id) => {
+      await PostService.deletar(id)
+    }
    
  },
   actions: {
+
+    updateSelected_Text: ({commit}, selecionado) => {
+        commit('UPDATESELECTED', selecionado)
+    },
+
+    updateSelected_com: ({commit}, comentario) => {
+      commit('UPDATECOMMENT', comentario)
+  },
+
+  
+    updateSelected_id: ({commit}, id) =>{
+      commit('UPDATEID', id)
+    },
+
     getposts: async ({commit}) => {
         try{
           const posts = await PostService.getPosts();
@@ -69,11 +101,10 @@ export default new Vuex.Store({
         commit('ADD_COMENTARIO', comentario)
       },
 
-      remove: async (id) => {
+      remove: async ({dispatch}, id) => {
          await PostService.deletar(id)
-         await PostService.getPosts()
-      
-      }
+         dispatch('getposts')
+       }
      
   }
     
